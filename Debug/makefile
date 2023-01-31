@@ -41,34 +41,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := F407IGH6_Attitude _Algorithm
+BUILD_ARTIFACT_NAME := F407IGH6_Attitude_Algorithm
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-F407IGH6_Attitude\ _Algorithm.elf \
+F407IGH6_Attitude_Algorithm.elf \
 
 MAP_FILES += \
-F407IGH6_Attitude\ _Algorithm.map \
+F407IGH6_Attitude_Algorithm.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-F407IGH6_Attitude\ _Algorithm.list \
+F407IGH6_Attitude_Algorithm.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: F407IGH6_Attitude\ _Algorithm.elf secondary-outputs
+main-build: F407IGH6_Attitude_Algorithm.elf secondary-outputs
 
 # Tool invocations
-F407IGH6_Attitude\ _Algorithm.elf F407IGH6_Attitude\ _Algorithm.map: $(OBJS) $(USER_OBJS) D:\data\Project\CUBEIDE_project\F407IGH6_Attitude\ _Algorithm\STM32F407IGHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "F407IGH6_Attitude _Algorithm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\data\Project\CUBEIDE_project\F407IGH6_Attitude _Algorithm\STM32F407IGHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407IGH6_Attitude _Algorithm.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F407IGH6_Attitude_Algorithm.elf F407IGH6_Attitude_Algorithm.map: $(OBJS) $(USER_OBJS) D:\data\Project\CUBEIDE_project\F407IGH6_Attitude_Algorithm\STM32F407IGHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "F407IGH6_Attitude_Algorithm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\data\Project\CUBEIDE_project\F407IGH6_Attitude_Algorithm\STM32F407IGHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407IGH6_Attitude_Algorithm.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -77,14 +77,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-F407IGH6_Attitude\ _Algorithm.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "F407IGH6_Attitude _Algorithm.list"
+F407IGH6_Attitude_Algorithm.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "F407IGH6_Attitude_Algorithm.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) F407IGH6_Attitude\ _Algorithm.elf F407IGH6_Attitude\ _Algorithm.list F407IGH6_Attitude\ _Algorithm.map F407IGH6_Attitude\\ _Algorithm.elf default.size.stdout
+	-$(RM) F407IGH6_Attitude_Algorithm.elf F407IGH6_Attitude_Algorithm.list F407IGH6_Attitude_Algorithm.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

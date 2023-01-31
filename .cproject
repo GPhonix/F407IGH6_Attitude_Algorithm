@@ -49,12 +49,12 @@
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude _Algorithm/User_F407IGH6/Algorithms_Lib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude _Algorithm/User_F407IGH6/OLED}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude _Algorithm/User_F407IGH6/IST8310}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude _Algorithm/User_F407IGH6/LED_F407IGH6TR}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude _Algorithm/User_F407IGH6/BMI088}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude _Algorithm/User_F407IGH6/IMU_C}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude_Algorithm/User_F407IGH6/Algorithms_Lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude_Algorithm/User_F407IGH6/IMU_C}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude_Algorithm/User_F407IGH6/LED_F407IGH6TR}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude_Algorithm/User_F407IGH6/IST8310}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/F407IGH6_Attitude_Algorithm/User_F407IGH6/OLED}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1252300390" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>

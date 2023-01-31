@@ -31,7 +31,7 @@ User_F407IGH6/PID_primary/PID_primary.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h
+ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h
 ../User_F407IGH6/PID_primary/PID_primary.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -64,4 +64,4 @@ User_F407IGH6/PID_primary/PID_primary.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
-D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h:
+D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h:

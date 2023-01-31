@@ -1,6 +1,6 @@
 User_F407IGH6/IMU_C/IMU_C.o: ../User_F407IGH6/IMU_C/IMU_C.c \
  ../User_F407IGH6/IMU_C/IMU_C.h \
- D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/IST8310/IST8310.h \
+ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/IST8310/IST8310.h \
  ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -31,13 +31,13 @@ User_F407IGH6/IMU_C/IMU_C.o: ../User_F407IGH6/IMU_C/IMU_C.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/IST8310/IST8310_reg.h \
- D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h \
- D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/BMI088/BMI088.h \
- D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/BMI088/BMI088_reg.h \
+ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/IST8310/IST8310_reg.h \
+ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h \
+ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088/BMI088.h \
+ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088/BMI088_reg.h \
  ../Core/Inc/spi.h ../Core/Inc/main.h
 ../User_F407IGH6/IMU_C/IMU_C.h:
-D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/IST8310/IST8310.h:
+D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/IST8310/IST8310.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -69,9 +69,9 @@ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/IST8
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
-D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/IST8310/IST8310_reg.h:
-D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h:
-D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/BMI088/BMI088.h:
-D:/data/Project/CUBEIDE_project/F407IGH6_Attitude\ _Algorithm/User_F407IGH6/BMI088/BMI088_reg.h:
+D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/IST8310/IST8310_reg.h:
+D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h:
+D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088/BMI088.h:
+D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088/BMI088_reg.h:
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
