@@ -82,7 +82,7 @@ static void IMU_GetInit_Angle(void)
 
 	mx = mx * cos(roll) + my * sin(roll) * sin(pitch) + mz * sin(roll) * cos(pitch);
 	my = my * cos(pitch) - mz * sin(pitch);
-	yaw = atan2f(my, mx);
+	yaw = -atan2f(my, mx);//此处为负结果才是正确的
 
 	g_imu_struct.roll = roll;
     g_imu_struct.pitch = pitch;
