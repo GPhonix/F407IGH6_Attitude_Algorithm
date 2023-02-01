@@ -5,8 +5,21 @@
  *      Author: Phoenix
  */
 #include "IMU_C.h"
-
+#define IST8310_IN_WORK
 static IMU_Typedef g_imu_struct = {
+
+		.ax_raw = 0,
+		.ay_raw = 0,
+		.az_raw = 0,
+		.gx_raw = 0,
+		.gy_raw = 0,
+		.gz_raw = 0,
+		.mx_raw = 0,
+		.my_raw = 0,
+		.mz_raw = 0,
+		.gx_offset = 0,
+		.gy_offset = 0,
+		.gz_offset = 0,
 		.quat.q0 = 1,
 		.quat.q1 = 0,
 		.quat.q2 = 0,
@@ -178,10 +191,16 @@ void IMU_Data_Fusion_Mahony(float dt, float *roll, float *pitch, float *yaw)
 	ay = ay * norm_temp;
 	az = az * norm_temp;
 	//磁力计归一化
+#ifdef IST8310_IN_WORK
     norm_temp = invSqrt(mx * mx + my * my + mz * mz);
     mx = mx * norm_temp;
     my = my * norm_temp;
     mz = mz * norm_temp;
+#else
+    mx = 0;
+    my = 0;
+    mz = 0;
+#endif
 	//用陀螺仪的数据计算物体坐标系重力分量
     vx = 2.0f * (q1q3 - q0q2);
     vy = 2.0f * (q0q1 + q2q3);
@@ -228,6 +247,11 @@ void IMU_Data_Fusion_Mahony(float dt, float *roll, float *pitch, float *yaw)
 	q1 = q1 * norm_temp;
 	q2 = q2 * norm_temp;
 	q3 = q3 * norm_temp;
+	//将更新后的四元数存到到g_imu_struct中
+	g_imu_struct.quat.q0 = q0;
+	g_imu_struct.quat.q1 = q1;
+	g_imu_struct.quat.q2 = q2;
+	g_imu_struct.quat.q3 = q3;
 	//四元数转旋转矩阵
 	g1 = 2.0f * (q1 * q3 - q0 * q2);
 	g2 = 2.0f * (q0 * q1 + q2 * q3);

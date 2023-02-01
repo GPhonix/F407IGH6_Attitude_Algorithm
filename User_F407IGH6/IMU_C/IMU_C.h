@@ -30,7 +30,7 @@ typedef struct{
 	uint8_t gyr_id;
 	uint8_t mag_id;
 
-	float roll;
+	float roll;//rad
 	float pitch;
 	float yaw;
 
