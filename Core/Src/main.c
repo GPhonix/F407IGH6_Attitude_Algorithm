@@ -55,7 +55,7 @@ float magdata[3] = {0};
 float g_roll;
 float g_pitch;
 float g_yaw;
-uint8_t g_oled_page = 1;
+uint8_t g_oled_page = 0;
 
 
 /* USER CODE END PV */
@@ -81,6 +81,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 //			HAL_WWDG_Refresh(&hwwdg);
 			IMU_Data_Fusion_Mahony(0.005, &g_roll, &g_pitch, &g_yaw);
+			IMU_Temperature_Compensate();
 
 		}
 		if(count % 500 == 0)
@@ -143,11 +144,12 @@ int main(void)
   MX_TIM2_Init();
   MX_I2C3_Init();
   MX_SPI1_Init();
+  MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
   uint8_t IMU_error = 0;
   OLED_Init();
+  HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
   IMU_error = IMU_Init();
-
   HAL_TIM_Base_Start_IT(&htim2);
 
   /* USER CODE END 2 */

@@ -9,7 +9,13 @@
 #define IMU_C_IMU_C_H_
 #include "IST8310.h"
 #include "BMI088.h"
+#include "PID_primary.h"
 #include "math.h"
+
+#define IMU_TEMP_PWM_MAX  999U //IMU控制温度的设置TIM的重载值，即给PWM最大为IMU_TEMP_PWM_MAX
+#define IMU_MAX_TEMP_SET 40.0f//IMU温度设定最大值
+
+
 typedef struct{
 	int16_t ax_raw;
 	int16_t ay_raw;
@@ -41,7 +47,17 @@ typedef struct{
 		float q3;
 	}quat;
 }IMU_Typedef;
+
+
+
+
+
+
+
+
+
 IMU_ERROR_Typedef IMU_Init(void);
+void IMU_Temperature_Compensate(void);
 void IMU_Data_Fusion_Mahony(float dt, float *roll, float *pitch, float *yaw);
 
 #endif /* IMU_C_IMU_C_H_ */

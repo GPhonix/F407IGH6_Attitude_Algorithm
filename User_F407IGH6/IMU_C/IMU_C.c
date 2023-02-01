@@ -5,6 +5,7 @@
  *      Author: Phoenix
  */
 #include "IMU_C.h"
+#include "tim.h"
 #define IST8310_IN_WORK
 static IMU_Typedef g_imu_struct = {
 
@@ -263,5 +264,35 @@ void IMU_Data_Fusion_Mahony(float dt, float *roll, float *pitch, float *yaw)
 	*pitch = -asinf(g1) * 57.29578;
 	*yaw = atan2f(g4, g5) * 57.29578;
 
-
 }
+
+void IMU_Temperature_Compensate(void)
+{
+	float real_temp;
+	float temp_pid_out;
+	uint16_t temp_pwm;
+	static PID_Typedef s_temp_pidstruct = {
+			.param.Kp = 10,
+			.param.Ki = 0.1,
+			.limit.max_err_input = 100,
+			.limit.max_i_out = IMU_TEMP_PWM_MAX - 100,
+			.limit.max_total_out = IMU_TEMP_PWM_MAX
+	};
+
+	real_temp = BMI088_Get_Temperature();
+	temp_pid_out = Pid_Calculate(&s_temp_pidstruct, real_temp, IMU_MAX_TEMP_SET);
+	if(temp_pid_out < 0)
+	{
+		temp_pwm = 0;
+	}
+	else
+	{
+		temp_pwm =  (uint16_t)temp_pid_out;
+	}
+	__HAL_TIM_SetCompare(&htim10, TIM_CHANNEL_1, temp_pwm);
+}
+
+
+
+
+

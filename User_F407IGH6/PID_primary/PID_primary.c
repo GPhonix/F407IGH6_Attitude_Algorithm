@@ -16,13 +16,9 @@ float Pid_Calculate(PID_Typedef *pid, float get, float set)
 	pid->input.set = set;
 	pid->input.last_err = pid->input.err;
 	pid->input.err = set - get;
-	//死区控制
-//	if(fabs(pid->input.err) < 0.5)
-//		{
-//		pid->output.i_out = 0;
-//		return 0;
-//	//input limit
-//		}
+
+	//input limit
+
 	if ((pid->limit.max_err_input != 0) && (fabs(pid->input.err) > pid->limit.max_err_input))
 		return 0;
 

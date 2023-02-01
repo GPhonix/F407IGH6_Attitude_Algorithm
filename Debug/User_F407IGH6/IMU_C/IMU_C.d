@@ -35,7 +35,9 @@ User_F407IGH6/IMU_C/IMU_C.o: ../User_F407IGH6/IMU_C/IMU_C.c \
  D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/Algorithms_Lib/Algorithms_Lib.h \
  D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088/BMI088.h \
  D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088/BMI088_reg.h \
- ../Core/Inc/spi.h ../Core/Inc/main.h
+ ../Core/Inc/spi.h ../Core/Inc/main.h \
+ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/PID_primary/PID_primary.h \
+ ../Core/Inc/tim.h
 ../User_F407IGH6/IMU_C/IMU_C.h:
 D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/IST8310/IST8310.h:
 ../Core/Inc/main.h:
@@ -75,3 +77,5 @@ D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088
 D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/BMI088/BMI088_reg.h:
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
+D:/data/Project/CUBEIDE_project/F407IGH6_Attitude_Algorithm/User_F407IGH6/PID_primary/PID_primary.h:
+../Core/Inc/tim.h:
