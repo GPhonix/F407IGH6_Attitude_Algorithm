@@ -6,13 +6,14 @@
  */
 
 #include "BMI088.h"
-//SPI片选宏函数
+
+/*----------------------SPI片选宏函数----------------------*/
 #define SPI_ACC_ENABLE() 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
 #define SPI_ACC_DISABLE() 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
 #define SPI_GYRO_ENABLE() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET)
 #define SPI_GYRO_DISABLE() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET)
 
-/*-----------BMI088基础读写函数-----------*/
+/*----------------------BMI088基础读写函数----------------------*/
 
 /**
   * @brief :向BMI088加速度计写入数据
@@ -95,7 +96,14 @@ void BMI088_Gyro_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
 	SPI_GYRO_DISABLE();
 }
 
-/*--------BMI088数据读取函数--------*/
+/*-------------------BMI088数据读取函数部分-------------------*/
+
+/**
+  * @brief :从BMI088加速度计中读取其ID值，用以验证加速度计是否正常工作以及通信是否正常
+  * @param :无
+  * @note  :此函数使用了宏定义的寄存器地址，请确保已有BMI088_reg.h文件并已包含在此C文件中
+  * @retval:BMI088加速度计的ID值
+  */
 uint8_t BMI088_Acc_ReadID(void)
 {
 	uint8_t ID;
@@ -104,6 +112,12 @@ uint8_t BMI088_Acc_ReadID(void)
 	return ID;
 }
 
+/**
+  * @brief :从BMI088陀螺仪中读取其ID值，用以验证陀螺仪是否正常工作以及通信是否正常
+  * @param :无
+  * @note  :此函数使用了宏定义的寄存器地址，请确保已有BMI088_reg.h文件并已包含在此C文件中
+  * @retval:BMI088陀螺仪的ID值
+  */
 uint8_t BMI088_Gyro_ReadID(void)
 {
 	uint8_t ID;
@@ -112,6 +126,12 @@ uint8_t BMI088_Gyro_ReadID(void)
 	return ID;
 }
 
+/**
+  * @brief :从BMI088加速度计中读取温度值
+  * @param :无
+  * @note  :此函数使用前需初始化BMI088加速度计,否则读取的温度值将不会变
+  * @retval:BMI088芯片环境温度，单位摄氏度(°C),精度0.125°C,此值每1.28秒更新一次
+  */
 float BMI088_Get_Temperature(void)
 {
 	uint8_t buff[2];
@@ -131,7 +151,14 @@ float BMI088_Get_Temperature(void)
 
 	return (temp_int11 * BMI088_TEMP_FACTOR + BMI088_TEMP_OFFSET);
 }
-//raw
+
+/**
+  * @brief :从BMI088加速度计中读取各轴加速度寄存器原始数据
+  * @param :*accdata: 存放X,Y,Z三轴加速度的数组地址
+  * @note  :1、此函数使用前需初始化BMI088加速度计，否则读取的加速度将不会变
+  * 		2、accdata[]数组中数据依次为X轴加速度，Y轴加速度,Z轴加速度
+  * @retval:无
+  */
 void BMI088_Getdata_Acc_raw(int16_t *accdata)
 {
 	uint8_t buff[6];
@@ -140,7 +167,14 @@ void BMI088_Getdata_Acc_raw(int16_t *accdata)
 	accdata[1] = (int16_t)( (buff[3] << 8) | buff[2] );
 	accdata[2] = (int16_t)( (buff[5] << 8) | buff[4] );
 }
-//rad / s
+
+/**
+  * @brief :从BMI088陀螺仪中读取各轴角速度寄存器原始数据
+  * @param :*gyrodata: 存放X,Y,Z三轴角速度的数组地址
+  * @note  :1、此函数使用前需初始化BMI088陀螺仪，否则读取的加速度将不会变
+  * 		2、accdata[]数组中数据依次为X轴角速度，Y轴角速度,Z轴角速度
+  * @retval:无
+  */
 void BMI088_Getdata_Gyro_raw(int16_t *gyrodata)
 {
 	uint8_t buff[6];
@@ -149,7 +183,16 @@ void BMI088_Getdata_Gyro_raw(int16_t *gyrodata)
 	gyrodata[1] = (int16_t)( (buff[3] << 8) | buff[2] );
 	gyrodata[2] = (int16_t)( (buff[5] << 8) | buff[4] );
 }
-//m_2/s
+
+/**
+  * @brief :从BMI088加速度计中读取各轴加速度寄存器处理后的数据
+  * @param :*accdata: 存放X,Y,Z三轴加速度的数组地址
+  * @note  :1、此函数使用前需初始化BMI088加速度计，否则读取的加速度将不会变
+  * 		2、accdata[]数组中数据依次为X轴加速度，Y轴加速度,Z轴加速度
+  * 		3、处理后的数据单位为加速度的国际单位制 m*m/s
+  * 		4、此时加速度计采样范围+-3G
+  * @retval:无
+  */
 void BMI088_Getdata_Acc(float *accdata)
 {
 	uint8_t buff[6];
@@ -162,7 +205,16 @@ void BMI088_Getdata_Acc(float *accdata)
 	tempbuff = (int16_t)( (buff[5] << 8) | buff[4] );
 	accdata[2] = tempbuff * BMI088_ACCEL_3G_SEN;
 }
-//rad / s
+
+/**
+  * @brief :从BMI088陀螺仪计中读取各轴角速度寄存器处理后的数据
+  * @param :*gyrodata: 存放X,Y,Z三轴角速度的数组地址
+  * @note  :1、此函数使用前需初始化BMI088陀螺仪，否则读取的加速度将不会变
+  * 		2、accdata[]数组中数据依次为X轴角速度，Y轴角速度,Z轴角速度
+  * 		3、处理后的数据单位为角速度的弧度制 rad / s
+  * 		4、此时陀螺仪采样范围+-2000°
+  * @retval:无
+  */
 void BMI088_Getdata_Gyro(float *gyrodata)
 {
 	uint8_t buff[6];
@@ -175,7 +227,15 @@ void BMI088_Getdata_Gyro(float *gyrodata)
 	tempbuff = (int16_t)( (buff[5] << 8) | buff[4] );
 	gyrodata[2] = tempbuff * BMI088_GYRO_2000_SEN;
 }
-/*--------BMI088初始化函数--------*/
+
+/*-------------------BMI088初始化函数部分-------------------*/
+
+/**
+  * @brief :BMI088加速度计初始化函数
+  * @param :无
+  * @note  :IMU_ERROR_Typedef 类型在Algorithms_Lib.h中被定义
+  * @retval:IMU_ERROR_Typedef 类型变量，根据此变量可确定加速度计初始化是否成功
+  */
 IMU_ERROR_Typedef BMI088_Acc_Init(void)
 {
 	uint8_t i;
@@ -217,6 +277,12 @@ IMU_ERROR_Typedef BMI088_Acc_Init(void)
 
 }
 
+/**
+  * @brief :BMI088陀螺仪初始化函数
+  * @param :无
+  * @note  :IMU_ERROR_Typedef 类型在Algorithms_Lib.h中被定义
+  * @retval:IMU_ERROR_Typedef 类型变量，根据此变量可确定陀螺仪初始化是否成功
+  */
 IMU_ERROR_Typedef BMI088_Gyro_Init(void)
 {
 	uint8_t i;
@@ -252,12 +318,17 @@ IMU_ERROR_Typedef BMI088_Gyro_Init(void)
     }
 }
 
-
-
+/**
+  * @brief :BMI088总初始化函数
+  * @param :无
+  * @note  :IMU_ERROR_Typedef 类型在Algorithms_Lib.h中被定义
+  * @retval:IMU_ERROR_Typedef 类型变量，根据此变量可确定陀螺仪和加速度计初始化是否成功
+  */
 IMU_ERROR_Typedef BMI088_Init(void)
 {
-	uint8_t bmi088_error = IMU_NO_ERROR;
+	IMU_ERROR_Typedef bmi088_error = IMU_NO_ERROR;
 	bmi088_error |= BMI088_Gyro_Init();
 	bmi088_error |= BMI088_Acc_Init();
+
 	return bmi088_error;
 }

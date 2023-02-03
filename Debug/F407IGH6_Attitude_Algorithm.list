@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  000200f8  2**0
                   CONTENTS, READONLY
- 13 .debug_info   0001204b  00000000  00000000  00020128  2**0
+ 13 .debug_info   0001204f  00000000  00000000  00020128  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00002ac8  00000000  00000000  00032173  2**0
+ 14 .debug_abbrev 00002ad9  00000000  00000000  00032177  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 000010a8  00000000  00000000  00034c40  2**3
+ 15 .debug_aranges 000010a8  00000000  00000000  00034c50  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_ranges 00000f58  00000000  00000000  00035ce8  2**3
+ 16 .debug_ranges 00000f58  00000000  00000000  00035cf8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0002300e  00000000  00000000  00036c40  2**0
+ 17 .debug_macro  0002300e  00000000  00000000  00036c50  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00016098  00000000  00000000  00059c4e  2**0
+ 18 .debug_line   00016099  00000000  00000000  00059c5e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d06c0  00000000  00000000  0006fce6  2**0
+ 19 .debug_str    000d06c0  00000000  00000000  0006fcf7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  001403a6  2**0
+ 20 .comment      00000050  00000000  00000000  001403b7  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00004d1c  00000000  00000000  001403f8  2**2
+ 21 .debug_frame  00004d1c  00000000  00000000  00140408  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -13664,8 +13664,10 @@ void BMI088_Gyro_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
  8005590:	20000178 	.word	0x20000178
 
 08005594 <BMI088_Acc_ReadID>:
-
-/*--------BMI088数据读取函数--------*/
+  * @param :无
+  * @note  :此函数使用了宏定义的寄存器地址，请确保已有BMI088_reg.h文件并已包含在此C文件中
+  * @retval:BMI088加速度计的ID值
+  */
 uint8_t BMI088_Acc_ReadID(void)
 {
  8005594:	b580      	push	{r7, lr}
@@ -13688,7 +13690,10 @@ uint8_t BMI088_Acc_ReadID(void)
  80055ae:	bd80      	pop	{r7, pc}
 
 080055b0 <BMI088_Gyro_ReadID>:
-
+  * @param :无
+  * @note  :此函数使用了宏定义的寄存器地址，请确保已有BMI088_reg.h文件并已包含在此C文件中
+  * @retval:BMI088陀螺仪的ID值
+  */
 uint8_t BMI088_Gyro_ReadID(void)
 {
  80055b0:	b580      	push	{r7, lr}
@@ -13711,7 +13716,10 @@ uint8_t BMI088_Gyro_ReadID(void)
  80055ca:	bd80      	pop	{r7, pc}
 
 080055cc <BMI088_Get_Temperature>:
-
+  * @param :无
+  * @note  :此函数使用前需初始化BMI088加速度计,否则读取的温度值将不会变
+  * @retval:BMI088芯片环境温度，单位摄氏度(°C),精度0.125°C,此值每1.28秒更新一次
+  */
 float BMI088_Get_Temperature(void)
 {
  80055cc:	b580      	push	{r7, lr}
@@ -13772,7 +13780,10 @@ float BMI088_Get_Temperature(void)
  800562e:	bd80      	pop	{r7, pc}
 
 08005630 <BMI088_Getdata_Acc_raw>:
-//raw
+  * @note  :1、此函数使用前需初始化BMI088加速度计，否则读取的加速度将不会变
+  * 		2、accdata[]数组中数据依次为X轴加速度，Y轴加速度,Z轴加速度
+  * @retval:无
+  */
 void BMI088_Getdata_Acc_raw(int16_t *accdata)
 {
  8005630:	b580      	push	{r7, lr}
@@ -13825,7 +13836,10 @@ void BMI088_Getdata_Acc_raw(int16_t *accdata)
  8005686:	bd80      	pop	{r7, pc}
 
 08005688 <BMI088_Getdata_Gyro_raw>:
-//rad / s
+  * @note  :1、此函数使用前需初始化BMI088陀螺仪，否则读取的加速度将不会变
+  * 		2、accdata[]数组中数据依次为X轴角速度，Y轴角速度,Z轴角速度
+  * @retval:无
+  */
 void BMI088_Getdata_Gyro_raw(int16_t *gyrodata)
 {
  8005688:	b580      	push	{r7, lr}
@@ -13878,10 +13892,10 @@ void BMI088_Getdata_Gyro_raw(int16_t *gyrodata)
  80056de:	bd80      	pop	{r7, pc}
 
 080056e0 <BMI088_Acc_Init>:
-	tempbuff = (int16_t)( (buff[5] << 8) | buff[4] );
-	gyrodata[2] = tempbuff * BMI088_GYRO_2000_SEN;
-}
-/*--------BMI088初始化函数--------*/
+  * @param :无
+  * @note  :IMU_ERROR_Typedef 类型在Algorithms_Lib.h中被定义
+  * @retval:IMU_ERROR_Typedef 类型变量，根据此变量可确定加速度计初始化是否成功
+  */
 IMU_ERROR_Typedef BMI088_Acc_Init(void)
 {
  80056e0:	b580      	push	{r7, lr}
@@ -13984,7 +13998,10 @@ IMU_ERROR_Typedef BMI088_Acc_Init(void)
  800576c:	08009288 	.word	0x08009288
 
 08005770 <BMI088_Gyro_Init>:
-
+  * @param :无
+  * @note  :IMU_ERROR_Typedef 类型在Algorithms_Lib.h中被定义
+  * @retval:IMU_ERROR_Typedef 类型变量，根据此变量可确定陀螺仪初始化是否成功
+  */
 IMU_ERROR_Typedef BMI088_Gyro_Init(void)
 {
  8005770:	b580      	push	{r7, lr}
@@ -14082,15 +14099,16 @@ IMU_ERROR_Typedef BMI088_Gyro_Init(void)
  80057fc:	08009294 	.word	0x08009294
 
 08005800 <BMI088_Init>:
-
-
-
+  * @param :无
+  * @note  :IMU_ERROR_Typedef 类型在Algorithms_Lib.h中被定义
+  * @retval:IMU_ERROR_Typedef 类型变量，根据此变量可确定陀螺仪和加速度计初始化是否成功
+  */
 IMU_ERROR_Typedef BMI088_Init(void)
 {
  8005800:	b580      	push	{r7, lr}
  8005802:	b082      	sub	sp, #8
  8005804:	af00      	add	r7, sp, #0
-	uint8_t bmi088_error = IMU_NO_ERROR;
+	IMU_ERROR_Typedef bmi088_error = IMU_NO_ERROR;
  8005806:	2300      	movs	r3, #0
  8005808:	71fb      	strb	r3, [r7, #7]
 	bmi088_error |= BMI088_Gyro_Init();
@@ -14107,6 +14125,7 @@ IMU_ERROR_Typedef BMI088_Init(void)
  8005820:	79fb      	ldrb	r3, [r7, #7]
  8005822:	4313      	orrs	r3, r2
  8005824:	71fb      	strb	r3, [r7, #7]
+
 	return bmi088_error;
  8005826:	79fb      	ldrb	r3, [r7, #7]
 }
