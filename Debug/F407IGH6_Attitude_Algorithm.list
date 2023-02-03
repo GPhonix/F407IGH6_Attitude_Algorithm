@@ -41,11 +41,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   00016099  00000000  00000000  00059c5e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d06c0  00000000  00000000  0006fcf7  2**0
+ 19 .debug_str    000d06c7  00000000  00000000  0006fcf7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  001403b7  2**0
+ 20 .comment      00000050  00000000  00000000  001403be  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00004d1c  00000000  00000000  00140408  2**2
+ 21 .debug_frame  00004d1c  00000000  00000000  00140410  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -13441,7 +13441,7 @@ float limit_control(float input, float limit)
   * @note  :此函数是基于HAL库的HAL_SPI_Transmit()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Acc_WriteReg(uint8_t addr, uint8_t data)
+void BMI088_Acc_WriteReg(uint8_t reg_addrr, uint8_t data)
 {
  8005404:	b580      	push	{r7, lr}
  8005406:	b084      	sub	sp, #16
@@ -13457,7 +13457,7 @@ void BMI088_Acc_WriteReg(uint8_t addr, uint8_t data)
  8005418:	4811      	ldr	r0, [pc, #68]	; (8005460 <BMI088_Acc_WriteReg+0x5c>)
  800541a:	f7fc fd47 	bl	8001eac <HAL_GPIO_WritePin>
 
-	uint8_t pTxData = (addr & BMI088_SPI_WRITE_CODE);
+	uint8_t pTxData = (reg_addrr & BMI088_SPI_WRITE_CODE);
  800541e:	79fb      	ldrb	r3, [r7, #7]
  8005420:	f003 037f 	and.w	r3, r3, #127	; 0x7f
  8005424:	b2db      	uxtb	r3, r3
@@ -13479,6 +13479,7 @@ void BMI088_Acc_WriteReg(uint8_t addr, uint8_t data)
 	HAL_Delay(1);
  8005446:	2001      	movs	r0, #1
  8005448:	f7fc fa5e 	bl	8001908 <HAL_Delay>
+
 	SPI_ACC_DISABLE();
  800544c:	2201      	movs	r2, #1
  800544e:	2110      	movs	r1, #16
@@ -13498,7 +13499,7 @@ void BMI088_Acc_WriteReg(uint8_t addr, uint8_t data)
   * @note  :此函数是基于HAL库的HAL_SPI_Transmit()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Gyro_WriteReg(uint8_t addr, uint8_t data)
+void BMI088_Gyro_WriteReg(uint8_t reg_addrr, uint8_t data)
 {
  8005468:	b580      	push	{r7, lr}
  800546a:	b084      	sub	sp, #16
@@ -13514,7 +13515,7 @@ void BMI088_Gyro_WriteReg(uint8_t addr, uint8_t data)
  800547c:	480f      	ldr	r0, [pc, #60]	; (80054bc <BMI088_Gyro_WriteReg+0x54>)
  800547e:	f7fc fd15 	bl	8001eac <HAL_GPIO_WritePin>
 
-	uint8_t pTxData = (addr & BMI088_SPI_WRITE_CODE);
+	uint8_t pTxData = (reg_addrr & BMI088_SPI_WRITE_CODE);
  8005482:	79fb      	ldrb	r3, [r7, #7]
  8005484:	f003 037f 	and.w	r3, r3, #127	; 0x7f
  8005488:	b2db      	uxtb	r3, r3
@@ -13550,7 +13551,7 @@ void BMI088_Gyro_WriteReg(uint8_t addr, uint8_t data)
   * @note  :此函数是基于HAL库的HAL_SPI_Receive()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Acc_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
+void BMI088_Acc_ReadReg(uint8_t reg_addrr, uint8_t *pdata, uint8_t len)
 {
  80054c4:	b580      	push	{r7, lr}
  80054c6:	b084      	sub	sp, #16
@@ -13566,7 +13567,7 @@ void BMI088_Acc_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
  80054d8:	4814      	ldr	r0, [pc, #80]	; (800552c <BMI088_Acc_ReadReg+0x68>)
  80054da:	f7fc fce7 	bl	8001eac <HAL_GPIO_WritePin>
 
-	uint8_t pTxData = (addr | BMI088_SPI_READ_CODE);
+	uint8_t pTxData = (reg_addrr | BMI088_SPI_READ_CODE);
  80054de:	79fb      	ldrb	r3, [r7, #7]
  80054e0:	f063 037f 	orn	r3, r3, #127	; 0x7f
  80054e4:	b2db      	uxtb	r3, r3
@@ -13614,7 +13615,7 @@ void BMI088_Acc_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
   * @note  :此函数是基于HAL库的HAL_SPI_Receive()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Gyro_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
+void BMI088_Gyro_ReadReg(uint8_t reg_addrr, uint8_t *pdata, uint8_t len)
 {
  8005534:	b580      	push	{r7, lr}
  8005536:	b084      	sub	sp, #16
@@ -13630,7 +13631,7 @@ void BMI088_Gyro_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
  8005548:	4810      	ldr	r0, [pc, #64]	; (800558c <BMI088_Gyro_ReadReg+0x58>)
  800554a:	f7fc fcaf 	bl	8001eac <HAL_GPIO_WritePin>
 
-	uint8_t pTxData = (addr | BMI088_SPI_READ_CODE);
+	uint8_t pTxData = (reg_addrr | BMI088_SPI_READ_CODE);
  800554e:	79fb      	ldrb	r3, [r7, #7]
  8005550:	f063 037f 	orn	r3, r3, #127	; 0x7f
  8005554:	b2db      	uxtb	r3, r3
@@ -14155,7 +14156,7 @@ IMU_ERROR_Typedef IMU_Init(void)
  8005844:	4313      	orrs	r3, r2
  8005846:	71fb      	strb	r3, [r7, #7]
 	imu_error |= IST8310_Init();
- 8005848:	f001 f8ce 	bl	80069e8 <IST8310_Init>
+ 8005848:	f001 f8fa 	bl	8006a40 <IST8310_Init>
  800584c:	4603      	mov	r3, r0
  800584e:	461a      	mov	r2, r3
  8005850:	79fb      	ldrb	r3, [r7, #7]
@@ -14907,7 +14908,7 @@ static void IMU_GetData(void)
 	IST8310_Getdata_Mag_raw(magdata);
  8005ff6:	463b      	mov	r3, r7
  8005ff8:	4618      	mov	r0, r3
- 8005ffa:	f000 fd29 	bl	8006a50 <IST8310_Getdata_Mag_raw>
+ 8005ffa:	f000 fcf5 	bl	80069e8 <IST8310_Getdata_Mag_raw>
 	g_imu_struct.temperature =  BMI088_Get_Temperature();
  8005ffe:	f7ff fae5 	bl	80055cc <BMI088_Get_Temperature>
  8006002:	eef0 7a40 	vmov.f32	s15, s0
@@ -15779,11 +15780,11 @@ static void IMU_Temperature_Compensate(void)
  8006958:	20000058 	.word	0x20000058
 
 0800695c <IST8310_WriteReg>:
-  * @param   reg_add:寄存器地址
-	* @param	 reg_data:要写入的数据
-  * @retval
+  * @param :reg_dataa :要写入的数据
+  * @note  :此函数是基于HAL库的HAL_I2C_Mem_Write函数，使用I2C3外设，请确定是否已经配置完成
+  * @retval:无
   */
-void IST8310_WriteReg(uint8_t reg_add,uint8_t reg_dat)
+void IST8310_WriteReg(uint8_t reg_addr,uint8_t reg_data)
 {
  800695c:	b580      	push	{r7, lr}
  800695e:	b086      	sub	sp, #24
@@ -15793,7 +15794,7 @@ void IST8310_WriteReg(uint8_t reg_add,uint8_t reg_dat)
  8006966:	71fb      	strb	r3, [r7, #7]
  8006968:	4613      	mov	r3, r2
  800696a:	71bb      	strb	r3, [r7, #6]
-	HAL_I2C_Mem_Write(&hi2c3, IST8310_IIC_ADDRESS << 1, reg_add, I2C_MEMADD_SIZE_8BIT, &reg_dat, 1, 0xff);
+	HAL_I2C_Mem_Write(&hi2c3, IST8310_IIC_ADDRESS << 1, reg_addr, I2C_MEMADD_SIZE_8BIT, &reg_data, 1, 0xff);
  800696c:	79fb      	ldrb	r3, [r7, #7]
  800696e:	b29a      	uxth	r2, r3
  8006970:	23ff      	movs	r3, #255	; 0xff
@@ -15815,11 +15816,11 @@ void IST8310_WriteReg(uint8_t reg_add,uint8_t reg_dat)
  8006990:	20000114 	.word	0x20000114
 
 08006994 <IST8310_ReadData>:
-	* @param	 *pdata:存储数据的缓存区
-	* @param	 len:要读取的数据量
-  * @retval
+  * @param :len :要读取的数据量
+  * @note  :此函数是基于HAL库的HAL_I2C_Mem_Write函数，使用I2C3外设，请确定是否已经配置完成
+  * @retval:无
   */
-void IST8310_ReadData(uint8_t reg_add,uint8_t *pdata,uint8_t len)
+void IST8310_ReadData(uint8_t reg_addr,uint8_t *pdata,uint8_t len)
 {
  8006994:	b580      	push	{r7, lr}
  8006996:	b086      	sub	sp, #24
@@ -15829,7 +15830,7 @@ void IST8310_ReadData(uint8_t reg_add,uint8_t *pdata,uint8_t len)
  800699e:	71fb      	strb	r3, [r7, #7]
  80069a0:	4613      	mov	r3, r2
  80069a2:	71bb      	strb	r3, [r7, #6]
-	HAL_I2C_Mem_Read(&hi2c3, IST8310_IIC_ADDRESS << 1, reg_add, I2C_MEMADD_SIZE_8BIT, pdata, len, 0xff);
+	HAL_I2C_Mem_Read(&hi2c3, IST8310_IIC_ADDRESS << 1, reg_addr, I2C_MEMADD_SIZE_8BIT, pdata, len, 0xff);
  80069a4:	79fb      	ldrb	r3, [r7, #7]
  80069a6:	b29a      	uxth	r2, r3
  80069a8:	79bb      	ldrb	r3, [r7, #6]
@@ -15851,9 +15852,9 @@ void IST8310_ReadData(uint8_t reg_add,uint8_t *pdata,uint8_t len)
  80069c8:	20000114 	.word	0x20000114
 
 080069cc <IST8310_ReadID>:
-/**
-  * @brief   读取mpu6050的ID
-  * @retval  Status_OK正常 | Status_ERROR错误
+  * @param :无
+  * @note  :此函数使用了宏定义的寄存器地址，请确保已有IST8310_reg.h文件并已包含在此C文件中
+  * @retval:IST8310磁力计的ID值
   */
 uint8_t IST8310_ReadID(void)
 {
@@ -15875,127 +15876,133 @@ uint8_t IST8310_ReadID(void)
  80069e4:	46bd      	mov	sp, r7
  80069e6:	bd80      	pop	{r7, pc}
 
-080069e8 <IST8310_Init>:
-
-IMU_ERROR_Typedef IST8310_Init(void)
+080069e8 <IST8310_Getdata_Mag_raw>:
+  * @note  :1、此函数使用前需初始化IST8310加速度计，否则读取的磁力将不会变
+  * 		2、magdata[]数组中数据依次为X轴磁力大小，Y轴磁力大小,Z轴磁力大小
+  * @retval:无
+  */
+void IST8310_Getdata_Mag_raw(int16_t *magdata)
 {
  80069e8:	b580      	push	{r7, lr}
- 80069ea:	af00      	add	r7, sp, #0
+ 80069ea:	b084      	sub	sp, #16
+ 80069ec:	af00      	add	r7, sp, #0
+ 80069ee:	6078      	str	r0, [r7, #4]
+	uint8_t buff[6];
+	IST8310_ReadData(IST8310_DATA_XL_ADDR, buff, 6);
+ 80069f0:	f107 0308 	add.w	r3, r7, #8
+ 80069f4:	2206      	movs	r2, #6
+ 80069f6:	4619      	mov	r1, r3
+ 80069f8:	2003      	movs	r0, #3
+ 80069fa:	f7ff ffcb 	bl	8006994 <IST8310_ReadData>
+	magdata[0] = (int16_t)( (buff[1] << 8) | buff[0] );
+ 80069fe:	7a7b      	ldrb	r3, [r7, #9]
+ 8006a00:	021b      	lsls	r3, r3, #8
+ 8006a02:	b21a      	sxth	r2, r3
+ 8006a04:	7a3b      	ldrb	r3, [r7, #8]
+ 8006a06:	b21b      	sxth	r3, r3
+ 8006a08:	4313      	orrs	r3, r2
+ 8006a0a:	b21a      	sxth	r2, r3
+ 8006a0c:	687b      	ldr	r3, [r7, #4]
+ 8006a0e:	801a      	strh	r2, [r3, #0]
+	magdata[1] = (int16_t)( (buff[3] << 8) | buff[2] );
+ 8006a10:	7afb      	ldrb	r3, [r7, #11]
+ 8006a12:	021b      	lsls	r3, r3, #8
+ 8006a14:	b219      	sxth	r1, r3
+ 8006a16:	7abb      	ldrb	r3, [r7, #10]
+ 8006a18:	b21a      	sxth	r2, r3
+ 8006a1a:	687b      	ldr	r3, [r7, #4]
+ 8006a1c:	3302      	adds	r3, #2
+ 8006a1e:	430a      	orrs	r2, r1
+ 8006a20:	b212      	sxth	r2, r2
+ 8006a22:	801a      	strh	r2, [r3, #0]
+	magdata[2] = (int16_t)( (buff[5] << 8) | buff[4] );
+ 8006a24:	7b7b      	ldrb	r3, [r7, #13]
+ 8006a26:	021b      	lsls	r3, r3, #8
+ 8006a28:	b219      	sxth	r1, r3
+ 8006a2a:	7b3b      	ldrb	r3, [r7, #12]
+ 8006a2c:	b21a      	sxth	r2, r3
+ 8006a2e:	687b      	ldr	r3, [r7, #4]
+ 8006a30:	3304      	adds	r3, #4
+ 8006a32:	430a      	orrs	r2, r1
+ 8006a34:	b212      	sxth	r2, r2
+ 8006a36:	801a      	strh	r2, [r3, #0]
+}
+ 8006a38:	bf00      	nop
+ 8006a3a:	3710      	adds	r7, #16
+ 8006a3c:	46bd      	mov	sp, r7
+ 8006a3e:	bd80      	pop	{r7, pc}
+
+08006a40 <IST8310_Init>:
+  * @note  :1、IMU_ERROR_Typedef 类型在Algorithms_Lib.h中被定义
+  *         2、初始化C板IST8310会用到GPIOG的GPIO_PIN_6引脚，请提前配置好
+  * @retval:IMU_ERROR_Typedef 类型变量，根据此变量可确定磁力计初始化是否成功
+  */
+IMU_ERROR_Typedef IST8310_Init(void)
+{
+ 8006a40:	b580      	push	{r7, lr}
+ 8006a42:	af00      	add	r7, sp, #0
 	if(IST8310_ReadID() == IST8310_WHO_AM_I_VALUE)
- 80069ec:	f7ff ffee 	bl	80069cc <IST8310_ReadID>
- 80069f0:	4603      	mov	r3, r0
- 80069f2:	2b10      	cmp	r3, #16
- 80069f4:	d126      	bne.n	8006a44 <IST8310_Init+0x5c>
+ 8006a44:	f7ff ffc2 	bl	80069cc <IST8310_ReadID>
+ 8006a48:	4603      	mov	r3, r0
+ 8006a4a:	2b10      	cmp	r3, #16
+ 8006a4c:	d126      	bne.n	8006a9c <IST8310_Init+0x5c>
 	{
 		//重启IST8310
 		HAL_GPIO_WritePin(GPIOG, IST8310_RST_PIN, GPIO_PIN_RESET);
- 80069f6:	2200      	movs	r2, #0
- 80069f8:	2140      	movs	r1, #64	; 0x40
- 80069fa:	4814      	ldr	r0, [pc, #80]	; (8006a4c <IST8310_Init+0x64>)
- 80069fc:	f7fb fa56 	bl	8001eac <HAL_GPIO_WritePin>
+ 8006a4e:	2200      	movs	r2, #0
+ 8006a50:	2140      	movs	r1, #64	; 0x40
+ 8006a52:	4814      	ldr	r0, [pc, #80]	; (8006aa4 <IST8310_Init+0x64>)
+ 8006a54:	f7fb fa2a 	bl	8001eac <HAL_GPIO_WritePin>
 		HAL_Delay(50);
- 8006a00:	2032      	movs	r0, #50	; 0x32
- 8006a02:	f7fa ff81 	bl	8001908 <HAL_Delay>
+ 8006a58:	2032      	movs	r0, #50	; 0x32
+ 8006a5a:	f7fa ff55 	bl	8001908 <HAL_Delay>
 		HAL_GPIO_WritePin(GPIOG, IST8310_RST_PIN, GPIO_PIN_SET);
- 8006a06:	2201      	movs	r2, #1
- 8006a08:	2140      	movs	r1, #64	; 0x40
- 8006a0a:	4810      	ldr	r0, [pc, #64]	; (8006a4c <IST8310_Init+0x64>)
- 8006a0c:	f7fb fa4e 	bl	8001eac <HAL_GPIO_WritePin>
+ 8006a5e:	2201      	movs	r2, #1
+ 8006a60:	2140      	movs	r1, #64	; 0x40
+ 8006a62:	4810      	ldr	r0, [pc, #64]	; (8006aa4 <IST8310_Init+0x64>)
+ 8006a64:	f7fb fa22 	bl	8001eac <HAL_GPIO_WritePin>
 		HAL_Delay(50);
- 8006a10:	2032      	movs	r0, #50	; 0x32
- 8006a12:	f7fa ff79 	bl	8001908 <HAL_Delay>
+ 8006a68:	2032      	movs	r0, #50	; 0x32
+ 8006a6a:	f7fa ff4d 	bl	8001908 <HAL_Delay>
 		//不开启中断
 		IST8310_WriteReg(IST8310_CNTL2_ADDR, 0x00);
- 8006a16:	2100      	movs	r1, #0
- 8006a18:	200b      	movs	r0, #11
- 8006a1a:	f7ff ff9f 	bl	800695c <IST8310_WriteReg>
+ 8006a6e:	2100      	movs	r1, #0
+ 8006a70:	200b      	movs	r0, #11
+ 8006a72:	f7ff ff73 	bl	800695c <IST8310_WriteReg>
 		HAL_Delay(150);
- 8006a1e:	2096      	movs	r0, #150	; 0x96
- 8006a20:	f7fa ff72 	bl	8001908 <HAL_Delay>
+ 8006a76:	2096      	movs	r0, #150	; 0x96
+ 8006a78:	f7fa ff46 	bl	8001908 <HAL_Delay>
 		//四次采样平均
 		IST8310_WriteReg(IST8310_AVGCNTL_ADDR, IST8310_AVGCNTL_FOURTH);
- 8006a24:	2112      	movs	r1, #18
- 8006a26:	2041      	movs	r0, #65	; 0x41
- 8006a28:	f7ff ff98 	bl	800695c <IST8310_WriteReg>
+ 8006a7c:	2112      	movs	r1, #18
+ 8006a7e:	2041      	movs	r0, #65	; 0x41
+ 8006a80:	f7ff ff6c 	bl	800695c <IST8310_WriteReg>
 		HAL_Delay(150);
- 8006a2c:	2096      	movs	r0, #150	; 0x96
- 8006a2e:	f7fa ff6b 	bl	8001908 <HAL_Delay>
+ 8006a84:	2096      	movs	r0, #150	; 0x96
+ 8006a86:	f7fa ff3f 	bl	8001908 <HAL_Delay>
 		//连续采样，200HZ输出模式
 		IST8310_WriteReg(IST8310_CNTL1_ADDR, IST8310_CNTL1_CONTINUE);
- 8006a32:	210b      	movs	r1, #11
- 8006a34:	200a      	movs	r0, #10
- 8006a36:	f7ff ff91 	bl	800695c <IST8310_WriteReg>
+ 8006a8a:	210b      	movs	r1, #11
+ 8006a8c:	200a      	movs	r0, #10
+ 8006a8e:	f7ff ff65 	bl	800695c <IST8310_WriteReg>
 		HAL_Delay(150);
- 8006a3a:	2096      	movs	r0, #150	; 0x96
- 8006a3c:	f7fa ff64 	bl	8001908 <HAL_Delay>
+ 8006a92:	2096      	movs	r0, #150	; 0x96
+ 8006a94:	f7fa ff38 	bl	8001908 <HAL_Delay>
 
     	return IMU_NO_ERROR;
- 8006a40:	2300      	movs	r3, #0
- 8006a42:	e000      	b.n	8006a46 <IST8310_Init+0x5e>
+ 8006a98:	2300      	movs	r3, #0
+ 8006a9a:	e000      	b.n	8006a9e <IST8310_Init+0x5e>
 	}
 	else
 	{
 		return IMU_MAG_ERROR;
- 8006a44:	2304      	movs	r3, #4
+ 8006a9c:	2304      	movs	r3, #4
 	}
 }
- 8006a46:	4618      	mov	r0, r3
- 8006a48:	bd80      	pop	{r7, pc}
- 8006a4a:	bf00      	nop
- 8006a4c:	40021800 	.word	0x40021800
-
-08006a50 <IST8310_Getdata_Mag_raw>:
-
-void IST8310_Getdata_Mag_raw(int16_t *magdata)
-{
- 8006a50:	b580      	push	{r7, lr}
- 8006a52:	b084      	sub	sp, #16
- 8006a54:	af00      	add	r7, sp, #0
- 8006a56:	6078      	str	r0, [r7, #4]
-	uint8_t buff[6];
-	IST8310_ReadData(IST8310_DATA_XL_ADDR, buff, 6);
- 8006a58:	f107 0308 	add.w	r3, r7, #8
- 8006a5c:	2206      	movs	r2, #6
- 8006a5e:	4619      	mov	r1, r3
- 8006a60:	2003      	movs	r0, #3
- 8006a62:	f7ff ff97 	bl	8006994 <IST8310_ReadData>
-	magdata[0] = (int16_t)( (buff[1] << 8) | buff[0] );
- 8006a66:	7a7b      	ldrb	r3, [r7, #9]
- 8006a68:	021b      	lsls	r3, r3, #8
- 8006a6a:	b21a      	sxth	r2, r3
- 8006a6c:	7a3b      	ldrb	r3, [r7, #8]
- 8006a6e:	b21b      	sxth	r3, r3
- 8006a70:	4313      	orrs	r3, r2
- 8006a72:	b21a      	sxth	r2, r3
- 8006a74:	687b      	ldr	r3, [r7, #4]
- 8006a76:	801a      	strh	r2, [r3, #0]
-	magdata[1] = (int16_t)( (buff[3] << 8) | buff[2] );
- 8006a78:	7afb      	ldrb	r3, [r7, #11]
- 8006a7a:	021b      	lsls	r3, r3, #8
- 8006a7c:	b219      	sxth	r1, r3
- 8006a7e:	7abb      	ldrb	r3, [r7, #10]
- 8006a80:	b21a      	sxth	r2, r3
- 8006a82:	687b      	ldr	r3, [r7, #4]
- 8006a84:	3302      	adds	r3, #2
- 8006a86:	430a      	orrs	r2, r1
- 8006a88:	b212      	sxth	r2, r2
- 8006a8a:	801a      	strh	r2, [r3, #0]
-	magdata[2] = (int16_t)( (buff[5] << 8) | buff[4] );
- 8006a8c:	7b7b      	ldrb	r3, [r7, #13]
- 8006a8e:	021b      	lsls	r3, r3, #8
- 8006a90:	b219      	sxth	r1, r3
- 8006a92:	7b3b      	ldrb	r3, [r7, #12]
- 8006a94:	b21a      	sxth	r2, r3
- 8006a96:	687b      	ldr	r3, [r7, #4]
- 8006a98:	3304      	adds	r3, #4
- 8006a9a:	430a      	orrs	r2, r1
- 8006a9c:	b212      	sxth	r2, r2
- 8006a9e:	801a      	strh	r2, [r3, #0]
-}
- 8006aa0:	bf00      	nop
- 8006aa2:	3710      	adds	r7, #16
- 8006aa4:	46bd      	mov	sp, r7
- 8006aa6:	bd80      	pop	{r7, pc}
+ 8006a9e:	4618      	mov	r0, r3
+ 8006aa0:	bd80      	pop	{r7, pc}
+ 8006aa2:	bf00      	nop
+ 8006aa4:	40021800 	.word	0x40021800
 
 08006aa8 <OLED_I2C_Start>:
   * @brief  I2C开始

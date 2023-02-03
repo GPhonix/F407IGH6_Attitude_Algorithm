@@ -11,9 +11,10 @@
 #include "Algorithms_Lib.h"
 
 #define IST8310_GPIOx GPIOG
-#define IST8310_RST_PIN GPIO_PIN_6
+#define IST8310_RST_PIN GPIO_PIN_6//IST8310重启引脚
 #define IST8310_DRDY_PIN GPIO_PIN_3
 
+//磁力计原始数据单位转换 uT(微特斯拉）
 #define MAG_SEN 0.3f
 
 

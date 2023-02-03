@@ -5258,12 +5258,12 @@ LOAD d:/software/mcu/st/stm32cubeide_1.10.1/stm32cubeide/plugins/com.st.stm32cub
  .text.IST8310_ReadID
                 0x00000000080069cc       0x1c ./User_F407IGH6/IST8310/IST8310.o
                 0x00000000080069cc                IST8310_ReadID
- .text.IST8310_Init
-                0x00000000080069e8       0x68 ./User_F407IGH6/IST8310/IST8310.o
-                0x00000000080069e8                IST8310_Init
  .text.IST8310_Getdata_Mag_raw
-                0x0000000008006a50       0x58 ./User_F407IGH6/IST8310/IST8310.o
-                0x0000000008006a50                IST8310_Getdata_Mag_raw
+                0x00000000080069e8       0x58 ./User_F407IGH6/IST8310/IST8310.o
+                0x00000000080069e8                IST8310_Getdata_Mag_raw
+ .text.IST8310_Init
+                0x0000000008006a40       0x68 ./User_F407IGH6/IST8310/IST8310.o
+                0x0000000008006a40                IST8310_Init
  .text.OLED_I2C_Start
                 0x0000000008006aa8       0x34 ./User_F407IGH6/OLED/OLED.o
                 0x0000000008006aa8                OLED_I2C_Start
@@ -5929,7 +5929,7 @@ LOAD d:/software/mcu/st/stm32cubeide_1.10.1/stm32cubeide/plugins/com.st.stm32cub
  .debug_line    0x0000000000014a4e      0xb7c ./User_F407IGH6/OLED/OLED.o
  .debug_line    0x00000000000155ca      0xacf ./User_F407IGH6/PID_primary/PID_primary.o
 
-.debug_str      0x0000000000000000    0xd06c0
+.debug_str      0x0000000000000000    0xd06c7
  .debug_str     0x0000000000000000    0xc6aed ./Core/Src/gpio.o
                                       0xc6d9f (size before relaxing)
  .debug_str     0x00000000000c6aed      0x533 ./Core/Src/i2c.o
@@ -5966,15 +5966,15 @@ LOAD d:/software/mcu/st/stm32cubeide_1.10.1/stm32cubeide/plugins/com.st.stm32cub
                                       0xc7200 (size before relaxing)
  .debug_str     0x00000000000cfd0a      0x11d ./User_F407IGH6/Algorithms_Lib/Algorithms_Lib.o
                                       0xc9df4 (size before relaxing)
- .debug_str     0x00000000000cfe27      0x2b5 ./User_F407IGH6/BMI088/BMI088.o
-                                      0xcbd84 (size before relaxing)
- .debug_str     0x00000000000d00dc      0x2b9 ./User_F407IGH6/IMU_C/IMU_C.o
+ .debug_str     0x00000000000cfe27      0x2ba ./User_F407IGH6/BMI088/BMI088.o
+                                      0xcbd89 (size before relaxing)
+ .debug_str     0x00000000000d00e1      0x2b9 ./User_F407IGH6/IMU_C/IMU_C.o
                                       0xcc1ac (size before relaxing)
- .debug_str     0x00000000000d0395       0x78 ./User_F407IGH6/IST8310/IST8310.o
-                                      0xca656 (size before relaxing)
- .debug_str     0x00000000000d040d      0x25e ./User_F407IGH6/OLED/OLED.o
+ .debug_str     0x00000000000d039a       0x7a ./User_F407IGH6/IST8310/IST8310.o
+                                      0xca658 (size before relaxing)
+ .debug_str     0x00000000000d0414      0x25e ./User_F407IGH6/OLED/OLED.o
                                       0xc69f0 (size before relaxing)
- .debug_str     0x00000000000d066b       0x55 ./User_F407IGH6/PID_primary/PID_primary.o
+ .debug_str     0x00000000000d0672       0x55 ./User_F407IGH6/PID_primary/PID_primary.o
                                       0xc9da9 (size before relaxing)
 
 .comment        0x0000000000000000       0x50

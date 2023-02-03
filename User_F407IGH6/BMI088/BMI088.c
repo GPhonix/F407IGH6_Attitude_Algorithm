@@ -13,40 +13,44 @@
 #define SPI_GYRO_ENABLE() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET)
 #define SPI_GYRO_DISABLE() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET)
 
-/*----------------------BMI088基础读写函数----------------------*/
+/*----------------------BMI088基础寄存器读写函数----------------------*/
 
+/************** 特别说明 :HAL_SPI_Transmit()函数和HAL_SPI_Receive()函数的等待时间不能太短如0xff,否则会通信失败
+ *
+ */
 /**
   * @brief :向BMI088加速度计写入数据
-  * @param :adrr :要写入数据的BMI088加速度计中的地址
+  * @param :reg_reg_addrrr :要写入数据的BMI088加速度计中的地址
   * @param :data :要写入的数据
   * @note  :此函数是基于HAL库的HAL_SPI_Transmit()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Acc_WriteReg(uint8_t addr, uint8_t data)
+void BMI088_Acc_WriteReg(uint8_t reg_addrr, uint8_t data)
 {
 	SPI_ACC_ENABLE();
 
-	uint8_t pTxData = (addr & BMI088_SPI_WRITE_CODE);
+	uint8_t pTxData = (reg_addrr & BMI088_SPI_WRITE_CODE);
 	HAL_SPI_Transmit(&hspi1, &pTxData, 1, 1000);
 //	while (HAL_SPI_GetState(&hspi1)==HAL_SPI_STATE_BUSY_TX);
 	HAL_SPI_Transmit(&hspi1, &data, 1, 1000);
 //	while (HAL_SPI_GetState(&hspi1)==HAL_SPI_STATE_BUSY_TX);
 	HAL_Delay(1);
+
 	SPI_ACC_DISABLE();
 }
 
 /**
   * @brief :向BMI088陀螺仪计写入数据
-  * @param :adrr :要写入数据的BMI088陀螺仪中的地址
+  * @param :reg_reg_addrrr :要写入数据的BMI088陀螺仪中的地址
   * @param :data :要写入的数据
   * @note  :此函数是基于HAL库的HAL_SPI_Transmit()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Gyro_WriteReg(uint8_t addr, uint8_t data)
+void BMI088_Gyro_WriteReg(uint8_t reg_addrr, uint8_t data)
 {
 	SPI_GYRO_ENABLE();
 
-	uint8_t pTxData = (addr & BMI088_SPI_WRITE_CODE);
+	uint8_t pTxData = (reg_addrr & BMI088_SPI_WRITE_CODE);
 	HAL_SPI_Transmit(&hspi1, &pTxData, 1, 1000);
 	HAL_SPI_Transmit(&hspi1, &data, 1, 1000);
 
@@ -55,17 +59,17 @@ void BMI088_Gyro_WriteReg(uint8_t addr, uint8_t data)
 
 /**
   * @brief :从BMI088加速度计中读取数据
-  * @param :adrr :要读取数据的BMI088加速度计中的地址
+  * @param :reg_reg_addrrr :要读取数据的BMI088加速度计中的地址
   * @param :*pdata :存放数据的地址
   * @param :len :读取数据的字节数
   * @note  :此函数是基于HAL库的HAL_SPI_Receive()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Acc_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
+void BMI088_Acc_ReadReg(uint8_t reg_addrr, uint8_t *pdata, uint8_t len)
 {
 	SPI_ACC_ENABLE();
 
-	uint8_t pTxData = (addr | BMI088_SPI_READ_CODE);
+	uint8_t pTxData = (reg_addrr | BMI088_SPI_READ_CODE);
 
 	HAL_SPI_Transmit(&hspi1, &pTxData, 1, 1000);
 //	while (HAL_SPI_GetState(&hspi1)==HAL_SPI_STATE_BUSY_TX);
@@ -79,17 +83,17 @@ void BMI088_Acc_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
 
 /**
   * @brief :从BMI088陀螺仪中读取数据
-  * @param :adrr :要读取数据的BMI088陀螺仪中的地址
+  * @param :reg_reg_addrrr :要读取数据的BMI088陀螺仪中的地址
   * @param :*pdata :存放数据的地址
   * @param :len :读取数据的字节数
   * @note  :此函数是基于HAL库的HAL_SPI_Receive()函数，使用SPI1，请确定是否已经配置完成
   * @retval:无
   */
-void BMI088_Gyro_ReadReg(uint8_t addr, uint8_t *pdata, uint8_t len)
+void BMI088_Gyro_ReadReg(uint8_t reg_addrr, uint8_t *pdata, uint8_t len)
 {
 	SPI_GYRO_ENABLE();
 
-	uint8_t pTxData = (addr | BMI088_SPI_READ_CODE);
+	uint8_t pTxData = (reg_addrr | BMI088_SPI_READ_CODE);
 	HAL_SPI_Transmit(&hspi1, &pTxData, 1, 1000);
 	HAL_SPI_Receive(&hspi1, pdata, len, 1000);
 
@@ -185,7 +189,7 @@ void BMI088_Getdata_Gyro_raw(int16_t *gyrodata)
 }
 
 /**
-  * @brief :从BMI088加速度计中读取各轴加速度寄存器处理后的数据
+  * @brief :从BMI088加速度计中读取各轴加速度寄存器并处理数据
   * @param :*accdata: 存放X,Y,Z三轴加速度的数组地址
   * @note  :1、此函数使用前需初始化BMI088加速度计，否则读取的加速度将不会变
   * 		2、accdata[]数组中数据依次为X轴加速度，Y轴加速度,Z轴加速度
@@ -207,7 +211,7 @@ void BMI088_Getdata_Acc(float *accdata)
 }
 
 /**
-  * @brief :从BMI088陀螺仪计中读取各轴角速度寄存器处理后的数据
+  * @brief :从BMI088陀螺仪计中读取各轴角速度寄存器并处理数据
   * @param :*gyrodata: 存放X,Y,Z三轴角速度的数组地址
   * @note  :1、此函数使用前需初始化BMI088陀螺仪，否则读取的加速度将不会变
   * 		2、accdata[]数组中数据依次为X轴角速度，Y轴角速度,Z轴角速度
