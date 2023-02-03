@@ -46,18 +46,13 @@ typedef struct{
 		float q2;
 		float q3;
 	}quat;
+
+	float Kp;
+	float Ki;
 }IMU_Typedef;
 
-
-
-
-
-
-
-
-
 IMU_ERROR_Typedef IMU_Init(void);
-void IMU_Temperature_Compensate(void);
+void IMU_Start(void);
 void IMU_Data_Fusion_Mahony(float dt, float *roll, float *pitch, float *yaw);
 
 #endif /* IMU_C_IMU_C_H_ */

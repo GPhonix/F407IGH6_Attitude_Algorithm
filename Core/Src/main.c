@@ -55,6 +55,7 @@ float magdata[3] = {0};
 float g_roll;
 float g_pitch;
 float g_yaw;
+float g_temperature = 0;
 uint8_t g_oled_page = 0;
 
 
@@ -81,8 +82,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 //			HAL_WWDG_Refresh(&hwwdg);
 			IMU_Data_Fusion_Mahony(0.005, &g_roll, &g_pitch, &g_yaw);
-			IMU_Temperature_Compensate();
-
+//			g_temperature = BMI088_Get_Temperature();
 		}
 		if(count % 500 == 0)
 		{
@@ -90,7 +90,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 	}
 }
-
+#ifdef OLED
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	if (GPIO_Pin == KEY_Pin)
@@ -105,7 +105,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		}
 	}
 }
-
+#endif
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -148,10 +148,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
   uint8_t IMU_error = 0;
   OLED_Init();
-  HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
   IMU_error = IMU_Init();
+  HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim2);
 
+  IMU_Start();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -161,18 +162,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	 HAL_Delay(50);
-//	 for(uint8_t i = 0; i < 3; i++)
-//	 {
-//		  OLED_Showfloat(2 + i, 1, accdata[i], 4, 4);
-//	 }
+#ifdef OLED
 	  HAL_Delay(50);
 	  switch (g_oled_page)
 	  {
 	  case 0:
 		  OLED_ShowString(1, 1, "IMU DEMO");
 		  OLED_ShowString(2, 1, "ERROR:");OLED_ShowBinNum(2, 7, IMU_error, 8);
-		  OLED_ShowString(3, 1, "TEMP:"); OLED_Showfloat(3, 6, BMI088_Get_Temperature(), 4, 5);
+		  OLED_ShowString(3, 1, "TEMP:"); OLED_Showfloat(3, 6, g_temperature, 4, 5);
 		  break;
 	  case 1:
 		  OLED_ShowString(1, 1, "Angle");
@@ -206,7 +203,7 @@ int main(void)
 		  break;
 	  default: break;
 	  }
-
+#endif
   }
   /* USER CODE END 3 */
 }

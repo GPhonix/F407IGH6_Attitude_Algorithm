@@ -30,6 +30,7 @@ User_F407IGH6/OLED/OLED.o: ../User_F407IGH6/OLED/OLED.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../User_F407IGH6/OLED/OLED_Font.h
 ../User_F407IGH6/OLED/OLED.H:
 ../Core/Inc/main.h:
@@ -63,4 +64,5 @@ User_F407IGH6/OLED/OLED.o: ../User_F407IGH6/OLED/OLED.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../User_F407IGH6/OLED/OLED_Font.h:
