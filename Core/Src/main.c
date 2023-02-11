@@ -21,6 +21,7 @@
 #include "i2c.h"
 #include "spi.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -30,6 +31,7 @@
 #include "IST8310.h"
 #include "BMI088.h"
 #include "IMU_C.h"
+#include "kalman.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,10 +57,23 @@ float magdata[3] = {0};
 float g_roll;
 float g_pitch;
 float g_yaw;
+float g_filter_yaw;
+float g_kalman_yaw;
 float g_temperature = 0;
 uint8_t g_oled_page = 0;
-
-
+LOW_PASS_FILTER_Typedef g_filter_yaw_struct = {
+		.frame_period = 0.01,
+		.filter_factor = 0.04
+};
+kalman g_kalman_yaw_struct = {
+		.X_last = (float)0,
+		.P_last = 0,
+		.Q = 10,
+		.R = 400,
+		.A = 1,
+		.H = 1,
+		.X_mid = 0
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -78,10 +93,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		count++;
 		count %= 1000;
-		if(count % 5 == 0)
+		if(count % 10 == 0)
 		{
 //			HAL_WWDG_Refresh(&hwwdg);
 			IMU_Data_Fusion_Mahony(0.005, &g_roll, &g_pitch, &g_yaw);
+			g_filter_yaw = low_pass_filter(&g_filter_yaw_struct, g_yaw);
+			g_kalman_yaw = KalmanFilter(&g_kalman_yaw_struct, g_yaw);
 //			g_temperature = BMI088_Get_Temperature();
 		}
 		if(count % 500 == 0)
@@ -90,6 +107,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 	}
 }
+
 #ifdef OLED
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -145,10 +163,12 @@ int main(void)
   MX_I2C3_Init();
   MX_SPI1_Init();
   MX_TIM10_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t IMU_error = 0;
+//  uint8_t IMU_error = 0;
   OLED_Init();
-  IMU_error = IMU_Init();
+//  IMU_error = IMU_Init();
+  IMU_Init();
   HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim2);
 

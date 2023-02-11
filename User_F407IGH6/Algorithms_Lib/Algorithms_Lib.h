@@ -24,6 +24,7 @@ typedef enum{
 	Status_OK = 0x01U,
 }Status_Typedef;
 
+
 typedef struct{
 	float output;//输出
 	float filter_factor;//滤波系数，系数越小收敛越快

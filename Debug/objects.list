@@ -33,6 +33,7 @@
 "./User_F407IGH6/BMI088/BMI088.o"
 "./User_F407IGH6/IMU_C/IMU_C.o"
 "./User_F407IGH6/IST8310/IST8310.o"
+"./User_F407IGH6/KalmanFilter/kalman.o"
 "./User_F407IGH6/LED_F407IGH6TR/LED_F407.o"
 "./User_F407IGH6/OLED/OLED.o"
 "./User_F407IGH6/PID_primary/PID_primary.o"

@@ -12,6 +12,7 @@ RM := rm -rf
 -include User_F407IGH6/PID_primary/subdir.mk
 -include User_F407IGH6/OLED/subdir.mk
 -include User_F407IGH6/LED_F407IGH6TR/subdir.mk
+-include User_F407IGH6/KalmanFilter/subdir.mk
 -include User_F407IGH6/IST8310/subdir.mk
 -include User_F407IGH6/IMU_C/subdir.mk
 -include User_F407IGH6/BMI088/subdir.mk

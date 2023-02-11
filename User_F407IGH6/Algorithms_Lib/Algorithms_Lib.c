@@ -5,6 +5,9 @@
  *      Author: Phonix
  */
 #include "Algorithms_Lib.h"
+
+
+
 /**
   * @brief          低通滤波初始化
   * @author         Guo_Hui_Lin
@@ -24,7 +27,7 @@ void low_pass_filter_init(LOW_PASS_FILTER_Typedef *filter_type, float filter_fac
   * @author         Guo_Hui_Lin
   * @param[in]      一阶低通滤波结构体
   * @param[in]    	输入
-  * @retval         返回空
+  * @retval         滤波后数据
   */
 float low_pass_filter(LOW_PASS_FILTER_Typedef *filter_type, float input)
 {
@@ -108,6 +111,7 @@ float invSqrt(float num)
     y = y * (1.5f - (halfnum * y * y));
     return y;
 }
+
 /**
   * @brief  控制输入参数的绝对值不超过限幅值
   * @param	需要限幅的变量

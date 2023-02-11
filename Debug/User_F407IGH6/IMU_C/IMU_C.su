@@ -1,8 +1,8 @@
-../User_F407IGH6/IMU_C/IMU_C.c:45:19:IMU_Init	16	static
-../User_F407IGH6/IMU_C/IMU_C.c:54:6:IMU_Start	8	static
-../User_F407IGH6/IMU_C/IMU_C.c:67:13:Get_Gyro_StaticError	24	static
-../User_F407IGH6/IMU_C/IMU_C.c:85:13:IMU_GetInit_Angle	56	static
-../User_F407IGH6/IMU_C/IMU_C.c:117:13:Init_Quaternions	40	static
-../User_F407IGH6/IMU_C/IMU_C.c:139:13:IMU_GetData	32	static
-../User_F407IGH6/IMU_C/IMU_C.c:160:6:IMU_Data_Fusion_Mahony	192	static
-../User_F407IGH6/IMU_C/IMU_C.c:304:13:IMU_Temperature_Compensate	24	static
+../User_F407IGH6/IMU_C/IMU_C.c:55:19:IMU_Init	16	static
+../User_F407IGH6/IMU_C/IMU_C.c:70:6:IMU_Start	8	static
+../User_F407IGH6/IMU_C/IMU_C.c:104:6:IMU_Data_Fusion_Mahony	128	static
+../User_F407IGH6/IMU_C/IMU_C.c:260:13:Get_Gyro_StaticError	24	static
+../User_F407IGH6/IMU_C/IMU_C.c:285:13:IMU_GetInit_Angle	48	static
+../User_F407IGH6/IMU_C/IMU_C.c:325:13:Init_Quaternions	40	static
+../User_F407IGH6/IMU_C/IMU_C.c:352:13:IMU_GetData	24	static
+../User_F407IGH6/IMU_C/IMU_C.c:383:13:IMU_Temperature_Compensate	24	static
